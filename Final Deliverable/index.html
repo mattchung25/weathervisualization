@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Visualizations</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Weather Viz</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('recordVsActual')">Record vs Actual</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('precipitationComparison')">Precipitation Comparison</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="home" class="section">
+            <h1 class="text-center">Weather Exploration</h1>
+            <div id="chart"></div>
+            <div>
+                <label for="categorySelect">Show: </label>
+                <select class="custom-select" id="categorySelect" onchange="onCategoryChanged()">
+                    <option selected value="JAX">Jacksonville, FL</option>
+                    <option value="CQT">Los Angeles, CA</option>
+                    <option value="MDW">Chicago, IL</option>
+                    <option value="CLT">Charlotte, NC</option>
+                    <option value="IND">Indianapolis, ID</option>
+                    <option value="PHL">Philadelphia, PA</option>
+                    <option value="PHX">Phoenix, AZ</option>
+                </select>
+            </div>
+        </div>
+        <div id="recordVsActual" class="section" style="display:none;">
+            <h1 class="text-center">Jacksonville Record vs Actual Max Temperatures</h1>
+            <div id="recordVsActualChart" class="chart"></div>
+        </div>
+        <div id="precipitationComparison" class="section" style="display:none;">
+            <h1 class="text-center">Precipitation Comparison: Jacksonville vs Los Angeles</h1>
+            <div id="timeRange">
+                <label for="timeRangeSelect">Time Range: </label>
+                <select id="timeRangeSelect" class="custom-select" onchange="onTimeRangeChanged()">
+                    <option value="1">1 Month</option>
+                    <option value="3">3 Months</option>
+                    <option value="6">6 Months</option>
+                    <option value="12" selected>1 Year</option>
+                </select>
+            </div>
+            <div id="precipitationComparisonChart" class="chart"></div>
+        </div>
+    </div>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="./temperature.js"></script>
+    <script src="./actualvsrecord.js"></script>
+    <script src="./precipitation.js"></script>
+    <script>
+        function showSection(sectionId) {
+            console.log('Showing section:', sectionId);
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
